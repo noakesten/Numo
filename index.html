@@ -32,7 +32,7 @@ details{border-top:1px solid var(--line);padding:14px 25px 20px}summary{cursor:p
 <section id="result" aria-live="polite"><h2 class="sectionTitle" id="greeting"></h2><p class="sub">לא תוויות ולא גזר דין. עוד דרך להכיר את עצמך.</p>
 <div class="overview" id="overview"></div>
 <h2 class="sectionTitle">המספרים שלך, מקרוב</h2><p class="sub">אותו מספר מספר סיפור אחר בכל מקום במפה. כאן אפשר לקרוא את הסיפור שלך לעומק.</p><div id="readings"></div>
-<h2 class="sectionTitle">הדרך לאורך השנים</h2><p class="sub">ארבע פסגות וארבעה אתגרים — פרקים שונים במסע, לא תחזית של מה שחייב לקרות.</p><div class="timeline" id="timeline"></div>
+<h2 class="sectionTitle">הדרך לאורך השנים</h2><p class="sub">ארבע פסגות וארבעה אתגרים — הפסגה הראשונה מתחילה בגיל 27 פחות מספר הגורל המצומצם. כל פסגה נמשכת תשע שנים, והרביעית ממשיכה הלאה.</p><div class="timeline" id="timeline"></div>
 <h2 class="sectionTitle">איפה את או אתה עכשיו?</h2><div id="now"></div>
 <h2 class="sectionTitle">איך כל זה מתחבר?</h2><div class="panel" id="synthesis"></div>
 <div class="actions noprint"><button class="primary" onclick="window.print()">שמירה כ־PDF / הדפסה</button><button class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">חזרה למעלה ↑</button></div>
@@ -94,7 +94,7 @@ const destiny=reduce([...String(d).split(''),...String(m).split(''),...String(y)
 const day=reduce(d),month=reduce(m),birthYear=reduce(y);
 const peaks=[reduce(rd+rm),reduce(rd+ry),reduce(reduce(rd+rm)+reduce(rd+ry)),reduce(rm+ry)];
 const challenges=[Math.abs(rd-rm),Math.abs(rd-ry),Math.abs(Math.abs(rd-rm)-Math.abs(rd-ry)),Math.abs(rm-ry)];
-const firstEnd=27-plain(destiny);const ages=[[0,firstEnd],[firstEnd+1,firstEnd+9],[firstEnd+10,firstEnd+18],[firstEnd+19,null]];
+const firstStart=27-plain(destiny);const ages=[[firstStart,firstStart+8],[firstStart+9,firstStart+17],[firstStart+18,firstStart+26],[firstStart+27,null]];
 const now=new Date(),cy=now.getFullYear(),cm=now.getMonth()+1,cd=now.getDate();const hadBirthday=cm>m||(cm===m&&cd>=d);const baseYear=hadBirthday?cy:cy-1;
 const offset=m>=7?1:0;const personalYear=reduce(rd+rm+plain(baseYear)+offset);const personalMonth=reduce(plain(personalYear)+cm);
 const age=cy-y-(hadBirthday?0:1);
@@ -107,7 +107,7 @@ document.getElementById('greeting').textContent=`${first}, זאת המפה של�
 const items=[['מספר גורל',x.destiny,'הדרך והלמידה'],['יום לידה',x.day,'איך רואים אותך'],['חודש לידה',x.month,'מה קורה בפנים'],['שנת לידה',x.birthYear,'שכבת רקע'],['שנה אישית',x.personalYear,'המחזור הנוכחי'],['חודש אישי',x.personalMonth,'הדגש של החודש']];
 document.getElementById('overview').innerHTML=items.map(([a,b,c])=>`<div class="stat"><small>${a}</small><strong>${b}</strong><p>${c}</p></div>`).join('');
 document.getElementById('readings').innerHTML=mainReading(x.destiny,'destiny')+mainReading(x.day,'day')+mainReading(x.month,'month')+mainReading(x.birthYear,'year');
-document.getElementById('timeline').innerHTML=x.peaks.map((p,i)=>{const [a,b]=x.ages[i];return `<div class="stage ${x.age>=a&&(b===null||x.age<=b)?'active':''}"><small>פרק ${i+1} • גיל ${a}${b===null?' ומעלה':'–'+b}</small><br><strong>${p}</strong><p>פסגה ${p} · אתגר ${x.challenges[i]}</p>${x.age>=a&&(b===null||x.age<=b)?'<span class="tag">התקופה הנוכחית</span>':''}</div>`}).join('');
+document.getElementById('timeline').innerHTML=(x.age<x.ages[0][0]?`<div class="notice" style="grid-column:1/-1">הפסגה הראשונה מתחילה בגיל ${x.ages[0][0]}. עד אז ציר הפסגות עדיין לא התחיל לפי השיטה הזו.</div>`:'')+x.peaks.map((p,i)=>{const [a,b]=x.ages[i];return `<div class="stage ${x.age>=a&&(b===null||x.age<=b)?'active':''}"><small>פרק ${i+1} • גיל ${a}${b===null?' ומעלה':'–'+b}</small><br><strong>${p}</strong><p>פסגה ${p} · אתגר ${x.challenges[i]}</p>${x.age>=a&&(b===null||x.age<=b)?'<span class="tag">התקופה הנוכחית</span>':''}</div>`}).join('');
 document.getElementById('timeline').innerHTML+=`<div style="grid-column:1/-1" id="periods">${x.peaks.map((p,i)=>periodReading(p,i,'peak')+periodReading(x.challenges[i],i,'challenge')).join('')}</div>`;
 const yr=dataFor(x.personalYear),mo=dataFor(x.personalMonth);
 document.getElementById('now').innerHTML=card(x.personalYear,'השנה האישית שלך',`מהיום שבו חל יום ההולדת האחרון ועד יום ההולדת הבא`,[

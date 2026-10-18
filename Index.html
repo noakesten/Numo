@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NUMO — המספרים שלך. הדרך שלך.</title>
+<meta name="theme-color" content="#f6eddd">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap');
+:root{--ink:#30302e;--muted:#706e69;--cream:#fcf8ef;--lav:#e8d9ff;--peach:#ffd9c5;--mint:#d8eadb;--yellow:#ffeb9e;--line:#e8e1d7}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Heebo,Arial,sans-serif;font-size:16px;line-height:1.8}button,input{font:inherit}button{cursor:pointer}main{max-width:980px;margin:auto;padding:22px 18px 90px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:15px}.logo{font-size:31px;font-weight:800;letter-spacing:-2px}.logo b{color:#9a70bc}.tiny{font-size:13px;color:var(--muted)}
+.hero{padding:38px 0 18px;position:relative}.eyebrow{font-size:13px;font-weight:800;letter-spacing:1px}.hero h1{font-size:clamp(35px,7vw,69px);line-height:1.18;letter-spacing:-2px;margin:15px 0}.hero h1 span{background:linear-gradient(transparent 63%,var(--yellow) 63%)}.lead{max-width:670px;font-size:19px}.pills{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0}.pill{background:#fff;border:1px solid var(--line);padding:4px 13px;border-radius:30px;font-size:13px}
+.panel{background:white;border:1px solid var(--line);border-radius:27px;padding:clamp(20px,4vw,35px);box-shadow:0 12px 32px #7461490d}
+.formgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}label{display:block;font-weight:700;font-size:14px}input{display:block;width:100%;border:1.5px solid #ded7cc;border-radius:13px;padding:12px;background:#fffcf8;margin-top:6px;outline-color:#9c7dbe}input[type=date]{min-height:51px}
+.primary{background:#342d37;color:white;border:0;border-radius:50px;padding:12px 28px;font-weight:800}.secondary{background:white;border:1px solid #cfc5bc;border-radius:50px;padding:10px 19px}.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:20px}
+#result{display:none}.sectionTitle{font-size:clamp(24px,5vw,36px);line-height:1.35;margin:48px 0 15px;letter-spacing:-.5px}.sub{color:var(--muted);margin-top:-4px}
+.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{border-radius:22px;padding:18px;min-height:154px}.stat:nth-child(6n+1){background:var(--lav)}.stat:nth-child(6n+2){background:var(--peach)}.stat:nth-child(6n+3){background:var(--mint)}.stat:nth-child(6n+4){background:var(--yellow)}.stat:nth-child(6n+5){background:#e8e7fb}.stat:nth-child(6n){background:#f7dce5}.stat small{font-size:13px;font-weight:700}.stat strong{display:block;font-size:51px;line-height:1.3}.stat p{font-size:12px;line-height:1.4;margin:0}
+.card{background:white;border:1px solid var(--line);border-radius:23px;margin:14px 0;overflow:hidden}.cardhead{padding:23px 25px;background:#fff;display:flex;gap:16px;align-items:center}.num{display:grid;place-items:center;flex:none;width:67px;height:67px;border-radius:20px;background:var(--lav);font-size:33px;font-weight:800}.card:nth-of-type(3n) .num{background:var(--peach)}.card:nth-of-type(3n+1) .num{background:var(--mint)}
+.card h3{margin:0;font-size:22px;line-height:1.4}.cardhead p{margin:3px 0 0;color:var(--muted);font-size:14px}.copy{padding:0 25px 22px}.copy p{margin:0 0 14px}.tag{display:inline-block;background:#fff0c6;padding:3px 11px;border-radius:20px;font-size:12px;font-weight:700}
+details{border-top:1px solid var(--line);padding:14px 25px 20px}summary{cursor:pointer;font-weight:800}details p{margin:12px 0 0}.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stage{background:white;border:1px solid var(--line);border-radius:18px;padding:17px}.stage.active{border:2px solid #8d69b5;background:#f7efff}.stage strong{font-size:32px}.stage p{font-size:13px;margin:4px 0}.foot{font-size:13px;color:var(--muted);margin-top:30px}.notice{padding:17px 21px;border-radius:17px;background:#f3e9ff;font-size:14px}.hide{display:none}
+@media(max-width:650px){.formgrid{grid-template-columns:1fr}.overview{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(2,1fr)}.hero{padding-top:20px}.stat{min-height:137px}.cardhead{padding:19px}.copy{padding:0 19px 18px}details{padding:13px 19px}}
+@media print{body{background:white}nav,.hero,.formpanel,.actions,.noprint,details summary{display:none!important}main{padding:0}#result{display:block!important}.card,.stage,.stat{break-inside:avoid;box-shadow:none}details{display:block}details>*{display:block!important}.sectionTitle{margin-top:25px}.foot{font-size:11px}}
+
+/* NUMO refreshed visual identity */
+body{background:linear-gradient(180deg,#fffaf4 0%,#fbf7f5 48%,#faf6ff 100%)}
+nav{padding:8px 3px 14px}.logo{font-size:34px}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:14px 0 25px;padding:clamp(36px,6vw,65px) clamp(22px,5vw,50px);border-radius:32px;background:linear-gradient(125deg,#ffe9db 0%,#fff0df 40%,#f2e4ff 100%);box-shadow:0 16px 45px #ac819321;min-height:340px}
+.hero::before{content:'7';position:absolute;left:3%;top:-85px;font-size:clamp(250px,42vw,460px);font-weight:800;line-height:1;color:#aa82ce;opacity:.13;z-index:-1;pointer-events:none}
+.hero::after{content:'✦';position:absolute;left:30%;bottom:6%;font-size:50px;color:#d9a0b2;opacity:.5;pointer-events:none}
+.hero .eyebrow{display:inline-block;background:#ffffffb8;border:1px solid #ffffffc9;border-radius:30px;padding:5px 16px;color:#845d91;font-size:13px;font-weight:800}
+.hero h1{font-size:clamp(36px,6.5vw,65px);max-width:690px}.hero h1 span{background:linear-gradient(transparent 65%,#ffe39b 65%)}
+.hero .lead{position:relative;max-width:580px}.hero .pill{background:#ffffffc4;border-color:#fff}
+.orb{position:absolute;border-radius:50%;display:grid;place-items:center;font-weight:800;pointer-events:none;opacity:.82;box-shadow:0 10px 22px #916b8214}
+.orb.a{width:62px;height:62px;left:14%;top:12%;background:#e9d7fa;color:#8761a5;transform:rotate(13deg)}
+.orb.b{width:54px;height:54px;left:6%;bottom:11%;background:#ffe1ad;color:#b67b48;transform:rotate(-12deg)}
+.orb.c{width:43px;height:43px;left:29%;top:9%;background:#f8d4e2;color:#b87b9a}
+.formpanel{border:1px solid #f2e0dd;background:linear-gradient(145deg,#fff 0%,#fffaf8 100%);box-shadow:0 15px 40px #8e708014}
+.formpanel h2{font-size:clamp(24px,4vw,31px)}.formpanel .primary{background:#78569d;box-shadow:0 6px 0 #eadbf7}.primary:hover{filter:brightness(1.08)}
+input:focus{outline:2px solid #a88acb;outline-offset:1px}
+.contact{margin:38px 0 12px;padding:29px 22px;border-radius:28px;text-align:center;background:linear-gradient(125deg,#f0e1ff,#ffe4da);border:1px solid #e9d8e6}
+.contact h2{margin:0 0 8px;font-size:clamp(24px,4.5vw,32px)}.contact p{max-width:540px;margin:0 auto 20px}.contact a{display:inline-block;padding:13px 24px;border-radius:40px;background:#26734e;color:#fff;text-decoration:none;font-weight:800;box-shadow:0 8px 18px #26734e29}
+@media(max-width:650px){.hero{padding:37px 21px 29px;min-height:0}.hero::before{font-size:280px;top:-24px;left:-42px;opacity:.09}.orb.a{left:5%;top:8%;width:43px;height:43px}.orb.b{left:5%;bottom:5%;width:37px;height:37px}.orb.c{display:none}.hero h1{letter-spacing:-1px}.hero .lead{font-size:17px}.contact a{width:100%;max-width:340px}}
+@media print{.contact,.orb{display:none!important}}
+</style></head>
+<body><main>
+<nav><div class="logo">NU<b>M</b>O<span style="color:#e6a0a6">.</span></div><div class="tiny">המספרים שלך. הדרך שלך.</div></nav>
+<section class="hero"><span class="orb a" aria-hidden="true">9</span><span class="orb b" aria-hidden="true">3</span><span class="orb c" aria-hidden="true">1</span><div class="eyebrow">✦ קצת מספרים, הרבה את ✦</div><h1>מפת הדרך<br><span>האישית שלך.</span></h1>
+<p class="lead">המספרים לא מחליטים בשבילך איך לחיות. הם יכולים לתת שפה לדברים שכבר הרגשת, להאיר דפוסים, ולהציע כיוון לצעד הבא שלך.</p>
+<div class="pills"><span class="pill">בחינם, באהבה</span><span class="pill">בלי הרשמה</span><span class="pill">בשפה פשוטה, עם עומק</span></div></section>
+<section class="panel formpanel"><h2 style="margin-top:0">בואו נכיר קצת ✨</h2><p class="sub">שם ותאריך לידה, והמפה שלך מוכנה. השם משמש לפנייה אישית בלבד.</p>
+<form id="f"><div class="formgrid"><label>שם פרטי<input id="first" placeholder="איך קוראים לך?" required maxlength="40"></label><label>שם משפחה<input id="last" placeholder="שם משפחה" maxlength="50"></label><label>תאריך לידה<input id="dob" type="date" required></label></div>
+<div class="actions"><button class="primary" type="submit">לגלות את המפה שלי ←</button><span class="tiny">הפרטים נשארים בדפדפן שלך ולא נשלחים לשרת.</span></div></form></section>
+<section id="result" aria-live="polite"><h2 class="sectionTitle" id="greeting"></h2><p class="sub">לא תוויות ולא גזר דין. עוד דרך להכיר את עצמך.</p>
+<div class="overview" id="overview"></div>
+<h2 class="sectionTitle">המספרים שלך, מקרוב</h2><p class="sub">אותו מספר מספר סיפור אחר בכל מקום במפה. כאן אפשר לקרוא את הסיפור שלך לעומק.</p><div id="readings"></div>
+<h2 class="sectionTitle">הדרך לאורך השנים</h2><p class="sub">ארבע פסגות וארבעה אתגרים — הפסגה הראשונה מתחילה בגיל 27 פחות מספר הגורל המצומצם. כל פסגה נמשכת תשע שנים, והרביעית ממשיכה הלאה.</p><div class="timeline" id="timeline"></div>
+<h2 class="sectionTitle">איפה את או אתה עכשיו?</h2><div id="now"></div>
+<h2 class="sectionTitle">איך כל זה מתחבר?</h2><div class="panel" id="synthesis"></div>
+<section class="contact" aria-label="ייעוץ נומרולוגי אישי"><h2>רוצה להעמיק במפה שלך? ♡</h2><p>המפה היא רק נקודת ההתחלה. אפשר להמשיך יחד לייעוץ נומרולוגי אישי שמותאם אלייך ולתקופה שלך.</p><a href="https://wa.me/972528633425?text=%D7%94%D7%99%D7%99%20%D7%A0%D7%95%D7%A2%D7%94%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20NUMO%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%99%D7%99%D7%A2%D7%95%D7%A5%20%D7%A0%D7%95%D7%9E%D7%A8%D7%95%D7%9C%D7%95%D7%92%D7%99%20%D7%90%D7%99%D7%A9%D7%99" target="_blank" rel="noopener noreferrer">💬 לייעוץ נומרולוגי אישי בוואטסאפ</a></section>
+<div class="actions noprint"><button class="primary" onclick="savePersonalMap()">⬇ שמירת המפה שלי</button><button class="secondary" onclick="printPersonalMap()">הדפסה / PDF</button><button class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">חזרה למעלה ↑</button></div>
+<p id="saveHelp" class="tiny noprint">באייפון, הכפתור ״שמירת המפה שלי״ מוריד קובץ אישי עם כל הפרשנויות. ל־PDF השתמשי ב״הדפסה / PDF״ דרך Safari.</p><p class="foot">NUMO היא כלי להתבוננות אישית המבוסס על מסורות פרשנות נומרולוגיות, לא שיטה מדעית או כלי לאבחון, טיפול או ניבוי. המפה מציעה אפשרויות לחשיבה — הבחירה תמיד שלך.</p></section>
+<footer class="foot" style="text-align:center">NUMO — המספרים שלך. הדרך שלך.<div style="margin-top:5px;color:#6b6470;font-size:13px">נוצר באהבה על ידי נועה קסטן ♡</div></footer>
+</main>
+<script>
+const meanings={
+1:{core:"עצמאות, יוזמה, זהות והיכולת להתחיל",gift:"לזהות אפשרות במקום שבו אחרים רואים קיר, להעז להתחיל ולהוביל בלי לחכות לאישור.",shadow:"לפעמים הרצון להיות חזקים ועצמאיים הופך למאמץ להחזיק הכול לבד. קשה לבקש עזרה, וקשה עוד יותר להסכים שלא הכול בשליטה.",growth:"הכוח של 1 מתבגר כשהוא לומד שעצמאות לא מחייבת בדידות. אפשר להיות ברורים, להוביל ולבחור — וגם להישען, להתייעץ ולהקשיב.",bond:"בקשרים חשוב מרחב אישי לצד קרבה. כשהעצמאות מרגישה מאוימת יכולה להופיע התנגדות, גם כשהצד השני רק מבקש להתקרב.",inner:"בתוך האדם יש צורך עמוק להרגיש שיש לו בחירה, קול וזהות משלו. גם מי שנראה כלפי חוץ גמיש יכול לחוות צמצום אישי בעוצמה.",outer:"הסביבה עשויה לראות אדם ישיר, יוזם ובעל נוכחות, כזה שפועל מהר ומעדיף לפתור דברים בעצמו. לעיתים הביטחון שמקרינים מסתיר צורך בתמיכה."},
+2:{core:"רגישות, שותפות, הקשבה ויכולת ליצור חיבור",gift:"לקרוא את מה שלא נאמר, לזהות את הצרכים של מי שמולך וליצור תחושה שיש מקום לכולם.",shadow:"הרגישות יכולה להפוך לדריכות כלפי מצב הרוח של אחרים. לפעמים הרצון לשמור על שלום גורם לוותר על קול אישי או לדחות החלטות.",growth:"ההתפתחות של 2 אינה להיות פחות רגיש, אלא לתת לרגישות גבולות. להישאר קשוב לאחרים בלי להיעלם בתוך הצרכים שלהם.",bond:"מערכות יחסים הן מקום מרכזי ללמידה. הרצון בקרבה ובביטחון גדול, והאתגר הוא לומר את האמת גם כשהיא עלולה ליצור אי־נוחות.",inner:"העולם הפנימי מבקש שייכות, רוך והרמוניה. תחושת ריחוק קטנה עלולה לקבל משמעות גדולה, ולכן חשוב להבחין בין מה שמרגישים למה שבאמת קרה.",outer:"כלפי חוץ יכולה להופיע נוכחות נעימה, דיפלומטית ומתחשבת. אחרים מרגישים שקל לדבר איתך, אך לא תמיד יודעים מה באמת חשוב לך."},
+3:{core:"ביטוי עצמי, יצירתיות, שמחה ותקשורת",gift:"להביא קלילות גם למצבים כבדים, לחבר אנשים דרך מילים, הומור ורעיונות, ולראות יופי בפרטים הקטנים.",shadow:"כשהרגש נעשה מורכב קל לעבור לנושא הבא, לצחוק או להתפזר. הרצון להיות אהובים עלול להפוך למאמץ תמידי להיות מעניינים.",growth:"ההתפתחות של 3 היא ללמוד שביטוי אמיתי כולל גם רגעים לא נוצצים. לא כל רגש צריך להפוך לבדיחה, ולא כל רעיון חייב להפוך לפרויקט.",bond:"קשר טוב זקוק לשיחה, משחק וחופש להיות עצמך. האתגר הוא להישאר בשיחה גם כשנגמרות המילים הקלות.",inner:"מבפנים יש עולם צבעוני, דמיון ורצון שיראו אותך באמת. כשאין מקום לביטוי, עלולה להופיע תחושה של החמצה או חוסר שקט.",outer:"הסביבה פוגשת לרוב אנרגיה תקשורתית, סקרנית ומלאת חיים. לפעמים דווקא הנוכחות הקלילה מסתירה עומק שלא כולם זוכים לראות."},
+4:{core:"יציבות, התמדה, אחריות ובניית יסודות",gift:"לקחת רעיון ולהפוך אותו למציאות, לשמור על רצף גם כשאין התלהבות ולבנות משהו שאפשר לסמוך עליו.",shadow:"הצורך בסדר ובוודאות עלול להפוך לנוקשות. כשמשהו משתבש, קל להרגיש שהקרקע נשמטת ולהעמיס על עצמך עוד אחריות.",growth:"ההתפתחות של 4 היא לגלות שיציבות אמיתית אינה שליטה מוחלטת. אפשר לתכנן היטב ועדיין להשאיר מקום לחיים להפתיע.",bond:"נאמנות ומעשים חשובים כאן יותר מהבטחות גדולות. האתגר הוא לזכור שגם רגש, ספונטניות ובקשת עזרה הם חלק מביטחון.",inner:"בפנים קיים צורך חזק בבסיס בטוח, בקצב ברור ובתחושה שיש על מה להישען. חוסר ודאות עלול לעייף גם כשלא מראים זאת.",outer:"הסביבה נוטה לראות אדם רציני, אחראי ומעשי. לא פעם סומכים עליו כל כך, עד ששוכחים שגם הוא זקוק למישהו שיחזיק עבורו רגע."},
+5:{core:"חופש, שינוי, תנועה וסקרנות לחיים",gift:"להסתגל במהירות, לנסות דרכים חדשות, להביא רוח רעננה ולהזכיר לאחרים שלא חייבים להישאר במקום שכבר אינו מתאים.",shadow:"תנועה מתמדת יכולה להפוך לבריחה משגרה, ממחויבות או מתחושות לא נוחות. לפעמים כל אפשרות חדשה נראית טובה יותר מזו שכבר ביד.",growth:"ההתפתחות של 5 היא להבין שחופש אינו רק האפשרות ללכת, אלא גם היכולת לבחור להישאר. עומק לא חייב לבוא על חשבון הרפתקה.",bond:"בקשר נדרשים אמון, מרחב וגיוון. כשיש תחושה של חנק מופיע דחף להתרחק, והלמידה היא לדבר על הצורך בחופש לפני שבורחים.",inner:"העולם הפנימי מחפש אוויר, התחדשות ותחושת אפשרות. שגרה סגורה מדי יכולה ליצור תחושת מחנק גם כשהכול לכאורה בסדר.",outer:"כלפי חוץ רואים אדם חי, גמיש וסקרן, שמביא תנועה ורעיונות. לא תמיד מבחינים שגם מאחורי הקלילות יש צורך עמוק בשייכות."},
+6:{core:"אהבה, בית, אחריות, טיפוח ותחושת שייכות",gift:"לראות מה צריך תיקון, לדאוג לאחרים וליצור סביבך מרחב שיש בו חום, יופי ואכפתיות.",shadow:"הרצון לעזור יכול להפוך ללקיחת אחריות על החיים של כולם. לפעמים קשה להבחין בין אהבה לבין ניסיון להציל, לתקן או לנהל.",growth:"ההתפתחות של 6 היא ללמוד שאהבה אינה נמדדת בכמות מה שנושאים על הגב. אפשר להיות מסורים בלי לשכוח את עצמך.",bond:"מערכות יחסים ומשפחה מקבלות משקל משמעותי. הצורך בהרמוניה גדול, אך חשוב לאפשר לאחרים להיות שונים ממה שדמיינת.",inner:"מבפנים יש כמיהה לבית במובן הרחב: מקום בטוח, שייכות, קרבה ויופי. כשהסביבה אינה רגועה, קשה לפעמים למצוא שקט גם בתוכך.",outer:"הסביבה עשויה לראות אדם חם, אחראי ואסתטי, כזה שמיד מרגיש מה חסר. לפעמים מצפים ממנו לתת בלי לשאול כמה נשאר לו."},
+7:{core:"עומק, חקירה, אינטואיציה וחיפוש משמעות",gift:"לראות מעבר למובן מאליו, לזהות דקויות, לשאול שאלות טובות ולחבר בין ידע לחוויה פנימית.",shadow:"הנטייה לחשוב לעומק יכולה להפוך לניתוח אינסופי או להתרחקות רגשית. לפעמים הראש מחפש תשובה במקום לאפשר ללב להרגיש.",growth:"ההתפתחות של 7 היא לתת אמון גם במה שלא ניתן להוכיח מיד, ולזכור שלא צריך להבין הכול כדי להיות חלק מהחיים.",bond:"נדרשים מרחב, כנות ושיחות עם תוכן. כשאין ביטחון אפשר להסתגר, ולכן חשוב להסביר לאחרים שהשקט אינו תמיד דחייה.",inner:"העולם הפנימי עשיר, פרטי ומלא שאלות. יש צורך בזמן לבד כדי לעבד חוויות, אבל גם רצון שיפגשו אותך מעבר לשכבה החיצונית.",outer:"כלפי חוץ יכולה להופיע נוכחות שקטה, מתבוננת או מסתורית. אחרים עשויים לפרש איפוק כריחוק, גם כשבפנים מתרחש עולם שלם."},
+8:{core:"עוצמה, השפעה, הישגים ויחסים עם כוח",gift:"לראות תמונה גדולה, לנהל משאבים, לקבל החלטות ולתרגם שאיפות למהלכים בעלי השפעה ממשית.",shadow:"הצורך להצליח עלול לקשור ערך עצמי לתוצאה, למעמד או לשליטה. לפעמים קשה לנוח בלי להרגיש שצריך להצדיק את המקום שלך.",growth:"ההתפתחות של 8 היא להשתמש בכוח בלי שהוא ישתמש בך. הצלחה מקבלת עומק כשהיא משרתת ערכים ולא רק מדדים.",bond:"בקשרים יש צורך בכבוד הדדי ובשותפות שווה. האתגר הוא להראות פגיעות בלי לחשוש שהיא תפחית מהעוצמה שלך.",inner:"מבפנים קיים רצון להרגיש מסוגלות והשפעה על המציאות. תחושת חוסר אונים עשויה לעורר תגובה חזקה, גם אם כלפי חוץ שומרים על איפוק.",outer:"הסביבה רואה לא פעם אדם נוכח, החלטי ושאפתן. הביטחון שמקרינים עשוי להסתיר פחד עמוק מכישלון או מאובדן שליטה."},
+9:{core:"חמלה, ראייה רחבה, השלמה ויכולת לשחרר",gift:"להבין אנשים ומצבים בהקשר רחב, לפתח נדיבות ולראות ערך גם במה שלא הסתדר לפי התוכנית.",shadow:"היכולת להכיל עלולה להפוך לנטילת כאב של אחרים. לעיתים קשה להיפרד מדברים שהסתיימו, כי עדיין רואים בהם פוטנציאל.",growth:"ההתפתחות של 9 היא להבין שחמלה אינה מחייבת הקרבה. אפשר לאהוב, לזכור ולהוקיר — ובכל זאת לבחור להמשיך הלאה.",bond:"בקשרים יש לב גדול וצורך במשמעות. האתגר הוא לא להפוך למי שתמיד מבין את כולם, אבל לא מבקש שיבינו גם אותו.",inner:"העולם הפנימי נוגע בשאלות של משמעות, פרידה ושייכות אנושית. יש רגישות לסבל וליופי, ולעיתים געגוע שקשה להסביר.",outer:"כלפי חוץ ניכרים רוחב לב, נדיבות וניסיון חיים. לפעמים אחרים נמשכים ליכולת ההכלה, ולא שמים לב שגם לך יש גבול."},
+11:{core:"רגישות גבוהה, השראה, אינטואיציה וראייה יוצאת דופן",gift:"לחוש דקויות, לזהות קשרים ולהעביר רעיונות שמדליקים אור אצל אנשים אחרים.",shadow:"עומס רגשי וציפייה להיות תמיד מדויקים יכולים להוביל לדריכות ולספק עצמי. עוצמת הקליטה אינה תמיד קלה לניהול.",growth:"11 מבקש ללמוד לקרקע השראה בחיי היומיום. אינטואיציה היא אפשרות להקשבה, לא חובה לדעת תמיד את התשובה.",bond:"יש כמיהה לחיבור עמוק ולתחושת הבנה. חשוב לזכור שגם קשר טוב מורכב משיחות פשוטות, גבולות ומעשים קטנים.",inner:"העולם הפנימי עשוי להיות רגיש ועשיר במיוחד, עם צורך במשמעות ובזמן שקט כדי לעבד התרשמויות.",outer:"כלפי חוץ אפשר להקרין השראה, עדינות או מתח פנימי. אנשים עשויים להרגיש שיש בך משהו מיוחד גם בלי לדעת להסביר למה."},
+22:{core:"חזון גדול, בנייה, אחריות והשפעה ארוכת טווח",gift:"לשלב ראייה רחבה עם יכולת מעשית, ולבנות רעיונות שיש להם משמעות מעבר לרגע.",shadow:"הפער בין חזון גדול למציאות היומיומית יכול ליצור עומס, פרפקציוניזם או תחושה שאף פעם לא עושים מספיק.",growth:"22 לומד לפרק חלום גדול לצעדים אנושיים. לא כל דבר צריך להיות מפעל חיים כדי להיות בעל ערך.",bond:"יש צורך בשותפות שמכבדת את השאיפות וגם מזכירה ליהנות מהדרך. לא חייבים לשאת את הכול לבד.",inner:"בפנים עשויה להיות תחושת אחריות גדולה ורצון להשאיר חותם. חשוב לאפשר גם מנוחה ומשחק, בלי להצדיק אותם.",outer:"הסביבה עשויה לראות אדם מעשי ובעל חזון. לעיתים מצפים ממנו ליותר ממה שאפשר לשאת לאורך זמן."}
+};
+const reduce=(n,master=true)=>{n=Math.abs(Number(n));while(n>9&&!(master&&(n===11||n===22)))n=String(n).split('').reduce((a,b)=>a+Number(b),0);return n};
+const plain=n=>reduce(n,false);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dataFor=n=>meanings[n]||meanings[plain(n)]||meanings[1];
+function card(n,title,subtitle,paragraphs,extra){const d=dataFor(n);return `<article class="card"><div class="cardhead"><div class="num">${n}</div><div><h3>${title}</h3><p>${subtitle}</p></div></div><div class="copy">${paragraphs.map(p=>`<p>${p}</p>`).join('')}<span class="tag">${d.core}</span></div>${extra?`<details><summary>עוד שכבה של עומק +</summary>${extra.map(p=>`<p>${p}</p>`).join('')}</details>`:''}</article>`}
+function mainReading(n,kind){
+const d=dataFor(n),name={destiny:'מספר הגורל',day:'יום הלידה',month:'חודש הלידה',year:'שנת הלידה'}[kind];
+if(kind==='destiny')return card(n,name,'הכיוון המרכזי והלמידה לאורך החיים',[
+`מספר הגורל ${n} עוסק ב${d.core}. לפי המסורת הנומרולוגית, זו אינה הגדרה של מי שאת או אתה היום, אלא נושא שחוזר לאורך הדרך ומזמין התפתחות. החיים יכולים להביא הזדמנויות לתרגל את האיכות הזאת דווקא במקומות שבהם היא לא באה בקלות.`,
+`אחת המתנות של המספר הזה היא היכולת ${d.gift} לא תמיד מזהים את המתנה הזאת בגיל צעיר; לפעמים היא נבנית דרך ניסיון, טעויות ובחירות שלא היו פשוטות.`,
+`לצד המתנה יש גם צד מאתגר: ${d.shadow} אלה אינם פגמים באופי, אלא דפוסים שכדאי ללמוד לזהות לפני שהם מנהלים את הבחירות.`,
+`הכיוון ההתפתחותי הוא כזה: ${d.growth}`
+],[`גם בזוגיות ובקרבה הנושא הזה יכול לחזור: ${d.bond}`,`אין כאן הבטחה לאירוע מסוים. יש כאן הזמנה לבדוק מה בחיים שלך מבקש כרגע יותר מקום.`]);
+if(kind==='day')return card(n,name,'איך פוגשים אותך מבחוץ ואיך את או אתה מגיבים לעולם',[
+`יום לידה ${n} מתאר את אופן הביטוי הראשוני שלך במפגש עם אנשים ומצבים. ${d.outer}`,
+`במפגש עם אתגרים, הנטייה הזאת עשויה להפוך לכוח משמעותי: ${d.gift} זו הדרך שבה תכונות מסוימות שלך נראות ונחוות בסביבה, גם בלי שהתכוונת להבליט אותן.`,
+`אבל התגובה האוטומטית אינה תמיד כל הסיפור. ${d.shadow} לפעמים הסביבה רואה רק את מה שנוח לך להראות, ולא את מה שעובר בפנים.`,
+`ככל שלומדים לבחור איך להגיב במקום לפעול על אוטומט, מתגלה אפשרות חדשה: ${d.growth}`
+],[`בתוך קשרים קרובים אפשר לפגוש גם את הצד הזה: ${d.bond}`,`יום הלידה אינו כל האישיות. הוא שכבה אחת, והיא מקבלת משמעות נוספת לצד מספר הגורל והחודש.`]);
+if(kind==='month')return card(n,name,'העולם הפנימי, הצרכים והרגישויות',[
+`חודש לידה ${n} מספר על מה שמתרחש מתחת לפני השטח: מה נותן תחושת ביטחון, מה מפעיל רגש ומה צריך לקבל מקום גם כשלא רואים אותו מבחוץ. ${d.inner}`,
+`כאן המתנה לא תמיד נראית לאחרים מיד. ${d.gift} כשהאיכות הזאת מקבלת מקום בחיים הפרטיים, היא יכולה להפוך למשאב של ממש.`,
+`ברגעים של עומס או חוסר ודאות עלול לעלות הצד הרגיש יותר: ${d.shadow} זה לא אומר שכך חייבים להגיב, אלא שזאת נטייה שאפשר ללמוד לפגוש ברכות.`,
+`מה שעוזר לאיזון הוא ${d.growth}`
+],[`בקשרים קרובים, הצורך הפנימי עשוי לבוא לידי ביטוי כך: ${d.bond}`,`כדאי לשים לב לפער האפשרי בין מה שאנשים חושבים שאת או אתה צריכים לבין מה שבאמת מזין אותך.`]);
+return card(n,name,'עוד שכבת רקע שמלווה את הדרך',[`המספר ${n} מוסיף למפה גוון של ${d.core}. הוא אינו עומד לבדו, אלא פועל לצד יום הלידה, החודש והגורל.`,`אחת האפשרויות שהוא פותח היא ${d.gift}`,`האתגר האפשרי: ${d.shadow}`,d.growth]);
+}
+function periodReading(n,i,type,ageRange){const d=dataFor(n);if(type==='peak')return card(n,`פסגה ${i+1} · ${ageRange}`,`איכות שמבקשת ביטוי בתקופה הזו • ${ageRange}`,[
+`בפרק הזה של החיים מודגשת אנרגיה של ${d.core}. אפשר לראות בה מעין נושא מרכזי של התקופה, לא רשימת אירועים שנקבעו מראש.`,
+`האפשרות הטמונה בתקופה היא ${d.gift}`,`כדי למצות אותה, כדאי להכיר גם את הצד הפחות נוח: ${d.shadow}`,`הצמיחה האפשרית כאן: ${d.growth}`]);
+const challenges={0:'אתגר 0 אינו היעדר אתגר. במסורות מסוימות הוא מסמל מגוון רחב של בחירות ושיעורים, בלי נושא אחד קבוע שמגדיר את התקופה.',1:'האתגר מזמין לבנות קול אישי ועצמאות, בלי להפוך כל אי־הסכמה למאבק.',2:'האתגר קשור לרגישות, שייכות וגבולות — להיות בקשר בלי לאבד את עצמך.',3:'האתגר נוגע לביטוי עצמי, לביטחון להישמע וליכולת לדבר גם כשחוששים מביקורת.',4:'האתגר מבקש גמישות מול סדר, עבודה ואחריות; לא הכול חייב להיות מושלם כדי להתקדם.',5:'האתגר קשור לאיזון בין חופש למחויבות ובין שינוי להתמדה.',6:'האתגר מזמין לבחון ציפיות מעצמך ומאחרים, ולתת מקום גם לצרכים האישיים.',7:'האתגר נוגע לאמון, לקרבה וליכולת לשהות בשאלות בלי להסתגר בתוכן.',8:'האתגר קשור ליחסים עם כוח, כסף, שליטה ותחושת ערך עצמי.'};
+return card(n,`אתגר ${i+1} · ${ageRange}`,`דפוס שכדאי להכיר ולפתח מולו בחירה • ${ageRange}`,[
+challenges[n]||`אתגר ${n} מזמין התבוננות בדפוסי התגובה בתקופה הזו.`,
+`אתגר אינו עונש ואינו תחזית לקושי. זו דרך סמלית לתאר איכות שדורשת תרגול מודע. לפעמים דווקא המקום שפחות טבעי לנו הופך עם הזמן למקור כוח.`,
+`אפשר לחזור לשאלה פשוטה: באילו מצבים אני פועל או פועלת מתוך הרגל, ואיפה כבר יש לי אפשרות להגיב אחרת?`]);}
+function calc(date){
+const [y,m,d]=date.split('-').map(Number);const rd=plain(d),rm=plain(m),ry=plain(y);
+const destiny=reduce([...String(d).split(''),...String(m).split(''),...String(y).split('')].reduce((a,b)=>a+Number(b),0));
+const day=reduce(d),month=reduce(m),birthYear=reduce(y);
+const peaks=[reduce(rd+rm),reduce(rd+ry),reduce(reduce(rd+rm)+reduce(rd+ry)),reduce(rm+ry)];
+const challenges=[Math.abs(rd-rm),Math.abs(rd-ry),Math.abs(Math.abs(rd-rm)-Math.abs(rd-ry)),Math.abs(rm-ry)];
+const firstStart=27-plain(destiny);const ages=[[firstStart,firstStart+8],[firstStart+9,firstStart+17],[firstStart+18,firstStart+26],[firstStart+27,null]];
+const now=new Date(),cy=now.getFullYear(),cm=now.getMonth()+1,cd=now.getDate();const hadBirthday=cm>m||(cm===m&&cd>=d);const baseYear=hadBirthday?cy:cy-1;
+const offset=m>=7?1:0;const personalYear=plain(rd+rm+plain(baseYear)+offset);const personalMonth=plain(personalYear+cm);
+const age=cy-y-(hadBirthday?0:1);
+return {y,m,d,day,month,birthYear,destiny,peaks,challenges,ages,personalYear,personalMonth,age,baseYear,offset};
+}
+document.getElementById('f').addEventListener('submit',e=>{
+e.preventDefault();const date=document.getElementById('dob').value;const first=document.getElementById('first').value.trim();if(!date||!first)return;
+const x=calc(date);if(x.y>new Date().getFullYear()||x.age<0){alert('כדאי לבדוק את תאריך הלידה');return}
+document.getElementById('greeting').textContent=`${first}, זאת המפה שלך ✨`;
+const items=[['מספר גורל',x.destiny,'הדרך והלמידה'],['יום לידה',x.day,'איך רואים אותך'],['חודש לידה',x.month,'מה קורה בפנים'],['שנת לידה',x.birthYear,'שכבת רקע'],['שנה אישית',x.personalYear,'המחזור הנוכחי'],['חודש אישי',x.personalMonth,'הדגש של החודש']];
+document.getElementById('overview').innerHTML=items.map(([a,b,c])=>`<div class="stat"><small>${a}</small><strong>${b}</strong><p>${c}</p></div>`).join('');
+document.getElementById('readings').innerHTML=mainReading(x.destiny,'destiny')+mainReading(x.day,'day')+mainReading(x.month,'month')+mainReading(x.birthYear,'year');
+document.getElementById('timeline').innerHTML=(x.age<x.ages[0][0]?`<div class="notice" style="grid-column:1/-1">הפסגה הראשונה מתחילה בגיל ${x.ages[0][0]}. עד אז ציר הפסגות עדיין לא התחיל לפי השיטה הזו.</div>`:'')+x.peaks.map((p,i)=>{const [a,b]=x.ages[i];return `<div class="stage ${x.age>=a&&(b===null||x.age<=b)?'active':''}"><small>פרק ${i+1} • גיל ${a}${b===null?' ומעלה':'–'+b}</small><br><strong>${p}</strong><p>פסגה ${p} · אתגר ${x.challenges[i]}</p>${x.age>=a&&(b===null||x.age<=b)?'<span class="tag">התקופה הנוכחית</span>':''}</div>`}).join('');
+document.getElementById('timeline').innerHTML+=`<div style="grid-column:1/-1" id="periods">${x.peaks.map((p,i)=>{const [a,b]=x.ages[i];const range=`גיל ${a}${b===null?' ומעלה':'–'+b}`;return periodReading(p,i,'peak',range)+periodReading(x.challenges[i],i,'challenge',range)}).join('')}</div>`;
+const yr=dataFor(x.personalYear),mo=dataFor(x.personalMonth);
+document.getElementById('now').innerHTML=card(x.personalYear,'השנה האישית שלך',`מהיום שבו חל יום ההולדת האחרון ועד יום ההולדת הבא`,[
+`השנה האישית ${x.personalYear} מביאה איתה, בשפה הנומרולוגית, דגש על ${yr.core}. זו אינה הבטחה למה שיקרה, אלא הצעה להבין איזה סוג של תנועה יכול להתאים לשלב הזה.`,
+`ההזדמנות של השנה: ${yr.gift}`,`הצד שכדאי לשים אליו לב: ${yr.shadow}`,`הכיוון שכדאי לקחת איתך: ${yr.growth}`])+card(x.personalMonth,'החודש האישי שלך','מתחלף בתחילת כל חודש קלנדרי',[
+`בחודש האישי ${x.personalMonth} הדגש הוא על ${mo.core}. בתוך הסיפור הגדול של השנה, זהו גוון זמני שמזמין תשומת לב קצת אחרת.`,
+`מה יכול לעזור החודש? ${mo.gift}`,`ומה כדאי לזכור? ${mo.growth}`]);
+const dest=dataFor(x.destiny),day=dataFor(x.day),month=dataFor(x.month);
+document.getElementById('synthesis').innerHTML=`<p><strong>${esc(first)}, אין במפה שלך מספר אחד שמספר הכול.</strong> יש בה כמה קולות, והעניין הוא ללמוד איך הם עובדים יחד.</p>
+<p>מספר הגורל ${x.destiny} מדגיש לאורך הדרך ${dest.core}. זו הדרך שבה החיים עשויים להזמין אותך לגדול. אבל ביום־יום אנשים פוגשים קודם את האנרגיה של יום הלידה ${x.day}: ${day.outer}</p>
+<p>בפנים, חודש הלידה ${x.month} מוסיף צורך אחר: ${month.inner} לפעמים כל השכבות מסתדרות יחד, ולפעמים נוצר פער בין מה שמשדרים לבין מה שבאמת צריכים. דווקא בפער הזה יש הזדמנות להיכרות חדשה עם עצמך.</p>
+<p>בתקופה הנוכחית, השנה האישית ${x.personalYear} מזמינה לתת מקום ל${yr.core}. אפשר לבחור פעולה אחת קטנה שמתאימה לכיוון הזה, בלי להפוך את כל החיים לפרויקט.</p>
+<p><strong>ומה לקחת מכאן?</strong> ${dest.growth} המפה היא לא תשובה סופית. היא נקודת פתיחה לשיחה טובה יותר עם עצמך.</p>`;
+document.getElementById('result').style.display='block';document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+function reportMarkup(){
+ const source=document.querySelector('style').textContent;
+ const report=document.getElementById('result').cloneNode(true);
+ report.style.display='block';
+ report.querySelectorAll('details').forEach(d=>d.setAttribute('open',''));
+ report.querySelectorAll('.noprint').forEach(n=>n.remove());
+ const name=document.getElementById('first').value.trim()||'אישי';
+ return '<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NUMO - '+esc(name)+'</title><style>'+source+'body{background:#fff}#result{display:block!important}details{display:block!important}details>*{display:block!important} .noprint{display:none!important}</style></head><body><main><nav><div class="logo">NUMO.</div><div class="tiny">המספרים שלך. הדרך שלך.</div></nav>'+report.outerHTML+'</main></body></html>';
+}
+function savePersonalMap(){
+ try{
+  const blob=new Blob([reportMarkup()],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='NUMO-המפה-האישית-שלי.html';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  const help=document.getElementById('saveHelp');
+  if(help)help.textContent='המפה נשמרת כקובץ שאפשר לפתוח ולשתף גם בלי אינטרנט. באייפון: בדקי את ״הורדות״ ביישום ״קבצים״. כדי ליצור PDF, לחצי על ״הדפסה / PDF״, ואז בחרי שיתוף ושמירה לקבצים.';
+ }catch(err){alert('לא הצלחנו להוריד את המפה בדפדפן הזה. נסי לפתוח את האתר ב-Safari וללחוץ על ״הדפסה / PDF״.');}
+}
+function printPersonalMap(){
+ const ds=[...document.querySelectorAll('#result details')];
+ ds.forEach(d=>d.open=true);
+ window.print();
+}
+</script></body></html>
